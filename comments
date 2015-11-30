@@ -1,0 +1,5 @@
+INTERVIEW QUESTIONS
+
+Name error: raised when a given name is invalid or undefined.
+
+Explain what a stack trace is: t shows all the files Ruby was running before it encountered an error. This usually helps you to understand what was happenening before the error occurred.
