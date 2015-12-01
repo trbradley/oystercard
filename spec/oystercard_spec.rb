@@ -28,4 +28,30 @@ describe Oystercard do
       expect { oystercard.deduct(7) }.to change { oystercard.balance }.by(-7)
     end
   end
+
+  context '#in_journey?' do
+    it 'a card should start with a value of false' do
+      expect(oystercard).not_to be_in_journey
+    end
+
+  end
+
+  context '#touch_in' do
+    it 'changes @in_journey from false to true' do
+      oystercard.top_up(10)
+      oystercard.touch_in
+      expect(oystercard).to be_in_journey
+    end 
+  end
+
+  context '#touch_out' do 
+    it 'changes @in_journey from true to false' do
+      oystercard.touch_in
+      oystercard.touch_out
+      expect(oystercard).not_to be_in_journey
+    end
+  end
+    
+
+
 end
