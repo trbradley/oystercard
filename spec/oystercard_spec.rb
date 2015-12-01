@@ -13,7 +13,7 @@ describe Oystercard do
 
     it 'cannot touch in if the balance is less than the minimum balance' do
       MIN_BALANCE = Oystercard::MIN_BALANCE
-      less_than_1 = "cannot touch in if the balance is less #{MIN_BALANCE} pound"
+      less_than_1 = "cannot touch in if balance is less #{MIN_BALANCE} pound"
       expect { oystercard.touch_in(station) }.to raise_error less_than_1
     end
 

@@ -21,7 +21,7 @@ MIN_FARE = MIN_BALANCE
   end
 
   def touch_in(station)
-    fail "cannot touch in if the balance is less #{MIN_BALANCE} pound" if insufficent_balance?
+    fail "cannot touch in if balance is less #{MIN_BALANCE} pound" if insufficent_balance?
     @station = station
   end
 
