@@ -8,7 +8,7 @@ describe Oystercard do
     expect(oystercard.balance).to eq 0
   end
 
-  describe '#top_up' do
+  context '#top_up' do
 
     it 'can top up the balance' do
       expect { oystercard.top_up(20) }.to change { oystercard.balance }.by(20)
@@ -19,6 +19,13 @@ describe Oystercard do
       over_90 = "the balance cannot be over #{LIMIT} pounds"
       oystercard.top_up(LIMIT)
       expect { oystercard.top_up(1) }.to raise_error over_90
+    end
+  end
+
+  context '#deduct' do
+    it 'can deduct money from the balance' do
+      oystercard.top_up(10)
+      expect { oystercard.deduct(7) }.to change { oystercard.balance }.by(-7)
     end
   end
 end
