@@ -12,7 +12,7 @@ MIN_FARE = MIN_BALANCE
   end
 
   def top_up(money)
-    fail "the balance cannot be over #{MAX_BALANCE} pounds" if @balance + money > MAX_BALANCE
+    fail "the balance cannot be over #{MAX_BALANCE} pounds" if excessive_balance?(money)
     @balance += money
   end
 
@@ -21,7 +21,7 @@ MIN_FARE = MIN_BALANCE
   end
 
   def touch_in
-    fail "cannot touch in if the balance is less #{MIN_BALANCE} pound" if @balance < MIN_BALANCE
+    fail "cannot touch in if the balance is less #{MIN_BALANCE} pound" if insufficent_balance?
     @in_journey = true
   end
 
@@ -31,6 +31,15 @@ MIN_FARE = MIN_BALANCE
   end
 
 private
+
+  def excessive_balance?(money)
+    @balance + money > MAX_BALANCE
+  end
+
+  def insufficent_balance?
+    @balance < MIN_BALANCE
+  end
+
 
   def deduct(money)
     @balance -= money
