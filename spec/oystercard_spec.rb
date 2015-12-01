@@ -22,13 +22,6 @@ describe Oystercard do
     end
   end
 
-  context '#deduct' do
-    it 'can deduct money from the balance' do
-      oystercard.top_up(10)
-      expect { oystercard.deduct(7) }.to change { oystercard.balance }.by(-7)
-    end
-  end
-
   context '#in_journey?' do
     it 'a card should start with a value of false' do
       expect(oystercard).not_to be_in_journey
@@ -53,6 +46,11 @@ describe Oystercard do
         oystercard.touch_in
         oystercard.touch_out
         expect(oystercard).not_to be_in_journey
+      end
+      it 'deducts 1 from the balance of the card' do
+        MIN_FARE = Oystercard::MIN_FARE
+        oystercard.touch_in
+        expect { oystercard.touch_out }.to change { oystercard.balance }.by(-MIN_FARE)
       end
     end
   end
