@@ -83,11 +83,11 @@ describe Oystercard do
         oystercard.touch_out('victoria')
         expect(oystercard.journey).to eq ({ entry_station: 'brixton', exit_station: 'victoria' })
       end
-      
+
       it 'has an history of the journeys' do
         oystercard.touch_in('brixton')
         oystercard.touch_out('victoria')
-        expect(oystercard.journey_history).to include(oystercard.journey)
+        expect(oystercard.journey_history).to eq ({'J1' => oystercard.journey})
       end
     end
   end

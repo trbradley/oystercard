@@ -11,7 +11,8 @@ MIN_FARE = MIN_BALANCE
     @entry_station = nil
     @exit_station = nil
     @journey = {}
-    @journey_history = []
+    @journey_history = {}
+    @journey_counter = 0
   end
 
   def top_up(money)
@@ -24,16 +25,18 @@ MIN_FARE = MIN_BALANCE
   end
 
   def touch_in(entry_station)
+    @journey = {}
     fail "cannot touch in if balance is less #{MIN_BALANCE} pound" if insufficent_balance?
     @entry_station = entry_station
     @journey[:entry_station] = entry_station
   end
 
   def touch_out(exit_station)
+    @journey_counter += 1
     @entry_station = nil
     @exit_station = exit_station
     @journey[:exit_station] = exit_station
-    @journey_history << @journey
+    @journey_history["J"+"#{@journey_counter}"] = @journey
     deduct(MIN_FARE)
   end
 
