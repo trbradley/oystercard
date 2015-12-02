@@ -47,27 +47,7 @@ describe Oystercard do
       end
     end
 
-    describe '#touch_in(entry_station)' do
-
-      it 'changes the entry station from nil to entry station name' do
-        oystercard.touch_in('brixton')
-        expect(oystercard.entry_station).to eq 'brixton'
-      end
-    end
-
     describe '#touch_out(exit_station)' do
-
-      it 'changes the entry station to nil' do
-        oystercard.touch_in('brixton')
-        oystercard.touch_out(exit_station)
-        expect(oystercard.entry_station).to eq nil
-      end
-
-      it 'changes the exit station from nil to exit station name' do
-        oystercard.touch_in('brixton')
-        oystercard.touch_out('victoria')
-        expect(oystercard.exit_station).to eq 'victoria'
-      end
 
       it 'deducts 1 from the balance of the card' do
         MIN_FARE = Oystercard::MIN_FARE
@@ -78,16 +58,14 @@ describe Oystercard do
 
     describe '#journey_history' do
 
-      it 'every journey includes entry station and exit station' do
-        oystercard.touch_in('brixton')
-        oystercard.touch_out('victoria')
-        expect(oystercard.journey).to eq ({ entry_station: 'brixton', exit_station: 'victoria' })
+      it 'has an empty list of journeys by default' do
+        expect(oystercard.journey_history).to eq({})
       end
 
       it 'has an history of the journeys' do
         oystercard.touch_in('brixton')
         oystercard.touch_out('victoria')
-        expect(oystercard.journey_history).to eq ({'J1' => oystercard.journey})
+        expect(oystercard.journey_history).to eq('J1' => { entry_station: 'brixton', exit_station: 'victoria' })
       end
     end
   end
