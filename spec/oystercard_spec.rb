@@ -32,17 +32,6 @@ describe Oystercard do
   context 'card WITH money' do
     before { oystercard.top_up(10) }
 
-    # describe '#in_journey?' do
-    #   it 'a card should start with a value of false' do
-    #     expect(oystercard.in_journey?).to eq false
-    #   end
-    #
-    #   it 'returns true when in journey' do
-    #     oystercard.touch_in(entry_station)
-    #     expect(oystercard.in_journey?).to eq true
-    #   end
-    # end
-
     describe '#touch_out(exit_station)' do
       it 'deducts 1 from the balance of the card' do
         MIN_FARE = Oystercard::MIN_FARE

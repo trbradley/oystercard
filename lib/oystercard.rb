@@ -10,9 +10,9 @@ class Oystercard
 
   def initialize
     @balance = 0
-    @journey = {}
     @journey_history = {}
     @journey_counter = 0
+    @this_journey = Journey.new
   end
 
   def top_up(money)
@@ -21,25 +21,33 @@ class Oystercard
     @balance += money
   end
 
-  def in_journey?
-    @journey[:entry_station] != nil
-  end
-
   def touch_in(entry_station)
     fail "cannot touch in if balance is less #{MIN_BALANCE} pound" if
       insufficent_balance?
-    @journey[:entry_station] = entry_station
+    @this_journey.start_journey(entry_station)
   end
 
   def touch_out(exit_station)
-    @journey_counter += 1
-    @journey[:exit_station] = exit_station
-    @journey_history['J' + "#{@journey_counter}"] = @journey
-    @journey = {}
+    increment_journey_counter
+    @this_journey.end_journey(exit_station)
+    write_to_history
     deduct(MIN_FARE)
   end
 
+  def card_in_use?
+    @this_journey.in_journey?
+  end
+
   private
+
+  def write_to_history
+    @journey_history['J' + "#{@journey_counter}"] = @this_journey.current_journey
+    @this_journey.reset
+  end
+
+  def increment_journey_counter
+    @journey_counter += 1
+  end
 
   def excessive_balance?(money)
     @balance + money > MAX_BALANCE
