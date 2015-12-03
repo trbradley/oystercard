@@ -16,13 +16,13 @@ class Oystercard
   end
 
   def top_up(money)
-    fail "the balance cannot be over #{MAX_BALANCE} pounds" if
+    fail "Maximum balance of #{MAX_BALANCE} exceeded" if
       excessive_balance?(money)
     @balance += money
   end
 
   def touch_in(entry_station)
-    fail "cannot touch in if balance is less #{MIN_BALANCE} pound" if
+    fail "Insufficient balance. Need at least #{MIN_BALANCE}" if
       insufficent_balance?
     @this_journey.start_journey(entry_station)
   end
@@ -41,7 +41,7 @@ class Oystercard
   private
 
   def write_to_history
-    @journey_history['J' + "#{@journey_counter}"] = @this_journey.current_journey
+    @journey_history['Journey ' + "#{@journey_counter}"] = @this_journey.current_journey
     @this_journey.reset
   end
 

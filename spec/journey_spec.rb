@@ -4,11 +4,11 @@ describe Journey do
   subject(:journey) { described_class.new }
 
   describe '#in_journey?' do
-    it 'a journey should start with a value of false' do
+    it 'should start with a value of false' do
       expect(journey.in_journey?).to eq false
     end
 
-    it 'returns true when in journey' do
+    it 'returns true during a journey' do
       journey.start_journey('Brixton')
       expect(journey.in_journey?).to eq true
     end

@@ -1,5 +1,4 @@
 describe 'User Stories' do
-
   let(:oystercard) { Oystercard.new }
 
   # In order to use public transport
@@ -21,9 +20,9 @@ describe 'User Stories' do
   # I don't want to put too much money on my card
   it 'has a maximum balance' do
     MAX_BALANCE = Oystercard::MAX_BALANCE
-    over_90 = "the balance cannot be over #{MAX_BALANCE} pounds"
+    max_balance_exceeded = "Maximum balance of #{MAX_BALANCE} exceeded"
     oystercard.top_up(MAX_BALANCE)
-    expect { oystercard.top_up(1) }.to raise_error over_90
+    expect { oystercard.top_up(1) }.to raise_error max_balance_exceeded
   end
 
   # In order to pay for my journey
